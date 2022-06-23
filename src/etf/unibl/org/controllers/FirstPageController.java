@@ -2,8 +2,14 @@ package etf.unibl.org.controllers;
 
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import etf.unibl.org.config.Config;
 import javafx.event.ActionEvent;
@@ -25,11 +31,33 @@ public class FirstPageController {
 	@FXML private Button izadjiButton;
 	
 	
-	public void potvrdiUnos() throws Exception
+	public static Handler handler;
+	
+	{
+		try {
+			handler = new FileHandler("FirstPageController.log");
+			Logger.getLogger(FirstPageController.class.getName()).addHandler(handler);
+		} catch (SecurityException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void potvrdiUnos() 
 	{
 		Properties prop = new Properties();
-		InputStream inputStream = new FileInputStream("resources/config/config.properties");
-		prop.load(inputStream);
+		InputStream inputStream = null;
+		try {
+			inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+		} catch (FileNotFoundException e) {
+			Logger.getLogger(FirstPageController.class.getName()).log(Level.SEVERE, e.fillInStackTrace().toString());
+		} catch (IOException e)
+		{
+			Logger.getLogger(FirstPageController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
+		}
+		
 		
 		String dimenzija = dimenzijeMatriceTextField.getText();
 		String brIgraca = brojIgracaTextField.getText();
@@ -37,10 +65,22 @@ public class FirstPageController {
 		{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/etf/unibl/org/views/MainPageView.fxml"));
-			BorderPane root = (BorderPane) loader.load();
+			BorderPane root = null;
+			
+			try {
+				root = (BorderPane) loader.load();
+			} catch (IOException e) {
+				
+			}
 			
 			MainPageController controller = loader.getController();
-			controller.kreirajMatricu(Integer.parseInt(dimenzija), Integer.parseInt(brIgraca));
+			
+			try {
+				controller.kreirajMatricu(Integer.parseInt(dimenzija), Integer.parseInt(brIgraca));
+			} catch (NumberFormatException | IOException e) {
+				Logger.getLogger(FirstPageController.class.getName()).log(Level.SEVERE, e.fillInStackTrace().toString());
+			}
+			
 			Stage stage = (Stage) potvrdiButton.getScene().getWindow();
 			stage.sizeToScene();
 			stage.setResizable(false);
@@ -55,7 +95,12 @@ public class FirstPageController {
 			Alert a = new Alert(AlertType.ERROR);
 			a.show();
 		}
-		inputStream.close();
+		
+		try {
+			inputStream.close();
+		} catch (IOException e) {
+			Logger.getLogger(FirstPageController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
+		}
 
 	}
 	

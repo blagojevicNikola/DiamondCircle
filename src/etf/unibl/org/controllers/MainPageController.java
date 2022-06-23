@@ -11,6 +11,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import etf.unibl.org.config.Config;
 import etf.unibl.org.enums.Boje;
@@ -50,6 +54,18 @@ public class MainPageController {
 	@FXML private VBox figureLegenda;
 	@FXML private Button listaFajlovaButton;
 	@FXML private Label sadrzajOpisaKarte;
+	
+	public static Handler handler;
+	
+	{
+		try {
+			handler = new FileHandler("MainPageController.log");
+			Logger.getLogger(MainPageController.class.getName()).addHandler(handler);
+		} catch (SecurityException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	private Matrica matrica;
 	private GridPane matricaWidget;
@@ -60,14 +76,13 @@ public class MainPageController {
 	private Boolean simulacijaTraje;
 	UpravljanjeIgracimaController upravljac;
 	
-	public void kreirajMatricu(Integer dim, Integer brIg)
+	public void kreirajMatricu(Integer dim, Integer brIg) throws IOException, FileNotFoundException
 	{
-		try {
-			matrica = new Matrica(dim);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		
+		matrica = new Matrica(dim);
+		
+		
 		this.dimenzijaMatrice = dim;
 		this.matricaWidget = new GridPane();
 		matricaWidget.setAlignment(Pos.CENTER);
@@ -106,15 +121,12 @@ public class MainPageController {
 		InputStream inputStream = null;
 		try {
 			inputStream = new FileInputStream("resources/config/config.properties");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
 			prop.load(inputStream);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (FileNotFoundException e1) {
+			throw e1;
+		}
+		 catch (IOException e1) {
+			throw e1;
 		}
 		
 		File igre = new File(prop.getProperty("rezultati"));
@@ -141,8 +153,7 @@ public class MainPageController {
 		try {
 			inputStream.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 throw e;
 		}
 	
 //		File in = new File("src/application/images.png");
@@ -199,13 +210,18 @@ public class MainPageController {
 		AnchorPane root = null;
 		try {
 			root = (AnchorPane) loader.load();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (IOException e) {
+			Logger.getLogger(MainPageController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
     	
 		RezultatFajloviController fajloviController = loader.getController();
-		fajloviController.pripremi();
+		
+		try {
+			fajloviController.pripremi();
+		} catch (IOException e) {
+			Logger.getLogger(MainPageController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
+		}
+		
 		Stage stage = new Stage();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);

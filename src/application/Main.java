@@ -1,5 +1,11 @@
 package application;
 	
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -9,6 +15,21 @@ import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
+	
+	public static Handler handler;
+	
+	{
+		try
+		{
+			handler = new FileHandler("Main.log");
+			Logger.getLogger(Main.class.getName()).addHandler(handler);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -21,7 +42,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
-			e.printStackTrace();
+			Logger.getLogger(Main.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 	}
 	

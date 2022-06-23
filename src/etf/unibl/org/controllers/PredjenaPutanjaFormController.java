@@ -25,34 +25,23 @@ public class PredjenaPutanjaFormController {
 	
 	@FXML private StackPane predjenaPutanjaHolder;
 	
-	public void ucitajPutanjuFigure(Figura f, Integer dimenzija)
+	public void ucitajPutanjuFigure(Figura f, Integer dimenzija) throws IOException
 	{
 		Properties prop = new Properties();
 		InputStream inputStream = null;
-		try {
-			inputStream = new FileInputStream("resources/config/config.properties");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			prop.load(inputStream);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
+		inputStream = new FileInputStream("resources/config/config.properties");
+		prop.load(inputStream);
+		
 		
 		File inputFile = new File(prop.getProperty("putanje")+ dimenzija +  ".txt");
 		FileReader input = null;
 		Scanner sc = null;
 
-		try {
-			input = new FileReader(inputFile);
-			sc = new Scanner(input).useDelimiter(",");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		input = new FileReader(inputFile);
+		sc = new Scanner(input).useDelimiter(",");
+	
 
 		List<Integer> listaPozicija = new ArrayList<Integer>();
 		Integer pom = 0;
@@ -99,12 +88,9 @@ public class PredjenaPutanjaFormController {
 		}
 		this.predjenaPutanjaHolder.getChildren().add(legendaPane);
 		
-		try {
-			inputStream.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		inputStream.close();
+		
 		
 	}
 	
