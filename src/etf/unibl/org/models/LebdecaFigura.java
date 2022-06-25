@@ -1,8 +1,12 @@
 package etf.unibl.org.models;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import etf.unibl.org.enums.Boje;
 import etf.unibl.org.models.interfaces.Figura;
@@ -12,9 +16,23 @@ import javafx.scene.paint.Color;
 
 public class LebdecaFigura extends Figura implements LebdecaFiguraInterface{
 
-	public LebdecaFigura(Matrica m, String oznaka, Color enumBoja, Igrac igrac) {
-		super(m, oznaka, enumBoja, igrac);
+	public LebdecaFigura(Matrica m, String oznaka, Color enumBoja, Igrac igrac, Integer indexFigure) {
+		super(m, oznaka, enumBoja, igrac, indexFigure);
 		// TODO Auto-generated constructor stub
+	}
+	
+	public static FileHandler handler;
+	
+	static{
+		try
+		{
+			handler = new FileHandler("LebdecaFigura.log");
+			Logger.getLogger(LebdecaFigura.class.getName()).addHandler(handler);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -26,12 +44,11 @@ public class LebdecaFigura extends Figura implements LebdecaFiguraInterface{
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(LebdecaFigura.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			}
 		}
 		
-		List<Integer> poljaZaPrelazak = this.getListaPoljaZaPrelazak();
+		List<Integer> poljaZaPrelazak = this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
 		
 		if(poljaZaPrelazak!=null)
 		{
@@ -43,8 +60,7 @@ public class LebdecaFigura extends Figura implements LebdecaFiguraInterface{
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+				Logger.getLogger(LebdecaFigura.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			}
 			
 			if(this.getIndexPosljednjegPolja()==mat.getPutanja().get(mat.getPutanja().size()-1).getIndexPutanje())
@@ -63,17 +79,16 @@ public class LebdecaFigura extends Figura implements LebdecaFiguraInterface{
 	}
 	
 	@Override
-	public List<Integer> getListaPoljaZaPrelazak()  
+	public void getListaPoljaZaPrelazak()  
 	{
 		Integer cilj = this.brZadanihPolja + this.getIndexPosljednjegPolja();
-
 		
 		if(cilj>=mat.getDuzinaPutanje()-1)
 		{
 			this.indexCilja = mat.getDuzinaPutanje()-1;
 			this.brZadanihPolja = mat.getDuzinaPutanje()-1 - this.getIndexPosljednjegPolja();
 			
-			return this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
+			//return this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
 		}
 		else
 		{
@@ -83,16 +98,17 @@ public class LebdecaFigura extends Figura implements LebdecaFiguraInterface{
 				{
 					this.indexCilja = cilj;
 					this.brZadanihPolja = cilj - this.getIndexPosljednjegPolja();
-					
-					return this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
+					break;
+					//return this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
 				}
 				else
 				{
 					cilj++;
 				}
 			}
-			
-			return null;
+//			this.brZadanihPolja = 0;
+//			this.indexCilja = 0;
+			//return null;
 			
 		}
 	}
@@ -106,12 +122,11 @@ public class LebdecaFigura extends Figura implements LebdecaFiguraInterface{
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(LebdecaFigura.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			}
 		}
 		
-		List<Integer> poljaZaPrelazak = this.getListaPoljaZaPrelazak();
+		List<Integer> poljaZaPrelazak = this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
 		
 		if(poljaZaPrelazak!=null)
 		{
@@ -124,8 +139,7 @@ public class LebdecaFigura extends Figura implements LebdecaFiguraInterface{
 					try {
 						lockObj.wait();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Logger.getLogger(LebdecaFigura.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 					}
 				}
 			}
@@ -136,8 +150,7 @@ public class LebdecaFigura extends Figura implements LebdecaFiguraInterface{
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+				Logger.getLogger(LebdecaFigura.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			}
 			
 			if(this.getIndexPosljednjegPolja()==mat.getPutanja().get(mat.getPutanja().size()-1).getIndexPutanje())
@@ -153,6 +166,8 @@ public class LebdecaFigura extends Figura implements LebdecaFiguraInterface{
 		{
 			//Mozda kasnije dodati nesto!
 		}
+		
+		handler.close();
 	}
 	
 }

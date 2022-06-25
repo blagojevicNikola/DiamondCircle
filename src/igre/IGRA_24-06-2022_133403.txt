@@ -1,0 +1,22 @@
+Igrac 1
+Figura 1(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16) - stigla do kraja: false
+Figura 2(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16) - stigla do kraja: false
+Figura 3(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: true
+Figura 4(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31) - stigla do kraja: false
+
+
+Igrac 2
+Figura 1(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: true
+Figura 2(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33) - stigla do kraja: false
+Figura 3(O) - predjen put: (4 - 12 - 20 - 28) - stigla do kraja: false
+Figura 4(O) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32) - stigla do kraja: false
+
+
+Igrac 3
+Figura 1(L) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: true
+Figura 2(O) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16) - stigla do kraja: false
+Figura 3(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: true
+Figura 4(L) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: true
+
+
+Ukupno vrijeme izvrsavanja je: 257s

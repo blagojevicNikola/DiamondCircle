@@ -19,7 +19,7 @@ public class Igrac {
 	
 	public Igrac(String naziv, Boje bojaIgraca, Matrica m, Integer index)
 	{
-		this.naziv = naziv;
+		this.setNaziv(naziv);
 		this.bojaIgraca = bojaIgraca;
 		this.indexIgraca = index;
 		switch(bojaIgraca)
@@ -47,13 +47,13 @@ public class Igrac {
 			switch(t)
 			{
 			case LEBDECA:
-				listaFigura.add(new LebdecaFigura(m,"L", this.bojaPaint, this));
+				listaFigura.add(new LebdecaFigura(m,"L", this.bojaPaint, this, i));
 				break;
 			case OBICNA:
-				listaFigura.add(new ObicnaFigura(m,"O", this.bojaPaint, this));
+				listaFigura.add(new ObicnaFigura(m,"O", this.bojaPaint, this, i));
 				break;
 			case SUPERBRZA:
-				listaFigura.add(new SuperBrzaFigura(m,"S", this.bojaPaint, this));
+				listaFigura.add(new SuperBrzaFigura(m,"S", this.bojaPaint, this, i));
 				break;
 			default:
 				break;
@@ -94,5 +94,13 @@ public class Igrac {
 	public Integer getIndexIgraca()
 	{
 		return this.indexIgraca;
+	}
+
+	public String getNaziv() {
+		return naziv;
+	}
+
+	public void setNaziv(String naziv) {
+		this.naziv = naziv;
 	}
 }

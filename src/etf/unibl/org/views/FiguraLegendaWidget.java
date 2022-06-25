@@ -21,9 +21,9 @@ import javafx.stage.Stage;
 public class FiguraLegendaWidget extends Button {
 
 	//Figura figura;
-	public static Handler handler;
+	public static FileHandler handler;
 	
-	{
+	static{
 		try {
 			handler = new FileHandler("FiguraLegendaWidget.log");
 			Logger.getLogger(FiguraLegendaWidget.class.getName()).addHandler(handler);
@@ -48,10 +48,11 @@ public class FiguraLegendaWidget extends Button {
 		    	FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("/etf/unibl/org/views/PredjenPutFormView.fxml"));
 				AnchorPane root = null;
-				try {
-					root = (AnchorPane) loader.load();
+				try { 
+					root = (AnchorPane) loader.load(); 
 				} catch (IOException e1) {
 					Logger.getLogger(FiguraLegendaWidget.class.getName()).log(Level.SEVERE, e1.fillInStackTrace().toString());
+					//handler.close();
 				}
 		    	
 				PredjenaPutanjaFormController formaController = loader.getController();
@@ -59,6 +60,7 @@ public class FiguraLegendaWidget extends Button {
 					formaController.ucitajPutanjuFigure(figura, dimenzija);
 				} catch (IOException e1) {
 					Logger.getLogger(FiguraLegendaWidget.class.getName()).log(Level.WARNING, e1.fillInStackTrace().toString());
+					//handler.close();
 				}
 				
 				Stage stage = new Stage();
@@ -67,6 +69,8 @@ public class FiguraLegendaWidget extends Button {
 				stage.show();
 		    }
 		});
+		
+		handler.close();
 	}
 	
 	private void setBoja(Figura f)

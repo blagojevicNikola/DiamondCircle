@@ -1,6 +1,10 @@
 package etf.unibl.org.models;
 
+import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
@@ -12,6 +16,20 @@ public class TimerIgre implements Runnable {
 	private volatile boolean exit = false;
 	private Object lockObj = new Object();
 	private AtomicBoolean pauzirano;
+	
+	public static FileHandler handler;
+	
+	static{
+		try
+		{
+			handler = new FileHandler("TimerIgre.log");
+			Logger.getLogger(TimerIgre.class.getName()).addHandler(handler);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	public TimerIgre(Label timerLabel, AtomicBoolean pauzirano, Object lockObj)
 	{
@@ -32,8 +50,7 @@ public class TimerIgre implements Runnable {
 					try {
 						lockObj.wait();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Logger.getLogger(TimerIgre.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 					}
 				}
 			}
@@ -52,11 +69,10 @@ public class TimerIgre implements Runnable {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(TimerIgre.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			}
 		}
-
+		handler.close();
 	}
 	
 	public void resetTimer()

@@ -55,7 +55,7 @@ public class MainPageController {
 	@FXML private Button listaFajlovaButton;
 	@FXML private Label sadrzajOpisaKarte;
 	
-	public static Handler handler;
+	public static FileHandler handler;
 	
 	{
 		try {
@@ -105,15 +105,21 @@ public class MainPageController {
 		Collections.shuffle(bojeIgraca);
 		for(int i = 0; i < brIg; i++)
 		{	
-			Igrac igrac = new Igrac("Igrac" + String.valueOf(i+1), bojeIgraca.get(i), matrica, i);
-			for(int j = 0; j < igrac.getListaFiguraIgraca().size(); j++)
-			{
-				this.figureLegenda.getChildren().add(new FiguraLegendaWidget(igrac.getListaFiguraIgraca().get(j), i+1, matrica.getDimenzija()));
-			}
+			Igrac igrac = new Igrac("Igrac " + String.valueOf(i+1), bojeIgraca.get(i), matrica, i);
 			listaIgraca.add(igrac);
-			Label l = new Label("Igrac "+ String.valueOf(i+1));
+		}
+		Collections.shuffle(listaIgraca);
+		
+		for(int i = 0; i < listaIgraca.size(); i++)
+		{
+			for(int j = 0; j < listaIgraca.get(i).getListaFiguraIgraca().size(); j++)
+			{
+				this.figureLegenda.getChildren().add(new FiguraLegendaWidget(listaIgraca.get(i).getListaFiguraIgraca().get(j), listaIgraca.get(i).getIndexIgraca()+1, matrica.getDimenzija()));
+			}
+			
+			Label l = new Label(listaIgraca.get(i).getNaziv());
 			l.setStyle("-fx-font-weight: bold; -fx-font-size: 15pt; ");
-			l.setTextFill(igrac.getBojaIgraca());
+			l.setTextFill(listaIgraca.get(i).getBojaIgraca());
 			poljeIgraca.getChildren().add(l);
 		}
 		
@@ -160,7 +166,7 @@ public class MainPageController {
 //		Image sl = new Image(in.toURI().toString());
 //		kartaHolder.setImage(sl);
 		upravljac = new UpravljanjeIgracimaController(listaIgraca, matrica, kartaHolder, kartaOpis, timer, sadrzajOpisaKarte, nemaAktivnihIgara, pokreniZaustaviButton);
-		
+		handler.close();
 	}
 	
 	public void izmjeniStanjeIgre()

@@ -31,7 +31,7 @@ public class FirstPageController {
 	@FXML private Button izadjiButton;
 	
 	
-	public static Handler handler;
+	public static FileHandler handler;
 	
 	{
 		try {
@@ -53,9 +53,11 @@ public class FirstPageController {
 			prop.load(inputStream);
 		} catch (FileNotFoundException e) {
 			Logger.getLogger(FirstPageController.class.getName()).log(Level.SEVERE, e.fillInStackTrace().toString());
+			//handler.close();
 		} catch (IOException e)
 		{
 			Logger.getLogger(FirstPageController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
+			//handler.close();
 		}
 		
 		
@@ -70,7 +72,8 @@ public class FirstPageController {
 			try {
 				root = (BorderPane) loader.load();
 			} catch (IOException e) {
-				
+				Logger.getLogger(FirstPageController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
+				//handler.close();
 			}
 			
 			MainPageController controller = loader.getController();
@@ -79,6 +82,7 @@ public class FirstPageController {
 				controller.kreirajMatricu(Integer.parseInt(dimenzija), Integer.parseInt(brIgraca));
 			} catch (NumberFormatException | IOException e) {
 				Logger.getLogger(FirstPageController.class.getName()).log(Level.SEVERE, e.fillInStackTrace().toString());
+				//handler.close();
 			}
 			
 			Stage stage = (Stage) potvrdiButton.getScene().getWindow();
@@ -100,8 +104,9 @@ public class FirstPageController {
 			inputStream.close();
 		} catch (IOException e) {
 			Logger.getLogger(FirstPageController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
+			//handler.close();
 		}
-
+		handler.close();
 	}
 	
 	public void zatvoriAplikaciju(ActionEvent event)

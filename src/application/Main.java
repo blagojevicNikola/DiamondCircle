@@ -16,7 +16,7 @@ import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
 	
-	public static Handler handler;
+	public static FileHandler handler;
 	
 	{
 		try
@@ -44,6 +44,8 @@ public class Main extends Application {
 		} catch(Exception e) {
 			Logger.getLogger(Main.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
+		
+		handler.close();
 	}
 	
 	public static void main(String[] args) {

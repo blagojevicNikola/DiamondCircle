@@ -14,7 +14,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import application.Main;
 import etf.unibl.org.controllers.UpravljanjeIgracimaController;
 import etf.unibl.org.models.Matrica;
 import etf.unibl.org.models.Polje;
@@ -22,6 +26,19 @@ import etf.unibl.org.models.interfaces.Figura;
 
 public class RezultatFile {
 	
+	public static FileHandler handler;
+	
+	static{
+		try
+		{
+			handler = new FileHandler("RezultatFile.log");
+			Logger.getLogger(RezultatFile.class.getName()).addHandler(handler);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	
 	private String lokacija;
@@ -36,15 +53,13 @@ public class RezultatFile {
 		InputStream inputStream = null;
 		try {
 			inputStream = new FileInputStream("resources/config/config.properties");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (FileNotFoundException e) {
+			Logger.getLogger(RezultatFile.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		try {
 			prop.load(inputStream);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (IOException e) {
+			Logger.getLogger(RezultatFile.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		
 		this.lokacija = prop.getProperty("rezultati");
@@ -52,10 +67,10 @@ public class RezultatFile {
 		try {
 			inputStream.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getLogger(RezultatFile.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		
+		handler.close();
 	}
 	
 	public void upisiRezultatIgre(String vrijemeIzvrsavanja) throws IOException
@@ -87,7 +102,7 @@ public class RezultatFile {
 			 for(int j = 0; j < 4; j++ )
 			 {
 				 Figura temp = UpravljanjeIgracimaController.listaZavrsenihFigura.get(i).get(j);
-				 System.out.println(i + " " + j);
+				 //System.out.println(i + " " + j);
 		
 				 String rezultatPutanje = "";
 				 for(Polje p:mat.getPutanja())

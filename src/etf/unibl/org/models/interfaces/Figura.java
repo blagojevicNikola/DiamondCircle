@@ -15,6 +15,7 @@ public abstract class Figura implements Runnable {
 	private Integer pozicijaX;
 	private Integer pozicijaY;
 	private Boje enumBoja;
+	private Integer indexFigure;
 	private Color bojaFigure;
 	private String oznaka;
 	protected Integer indexCilja;
@@ -28,7 +29,7 @@ public abstract class Figura implements Runnable {
 	protected List<Integer> indexPredjenihPolja = new ArrayList<Integer>();
 	protected List<Integer> listaPoljaZaPrelazak = new ArrayList<Integer>();
 	
-	public Figura(Matrica m, String oznaka, Color boja, Igrac igrac)
+	public Figura(Matrica m, String oznaka, Color boja, Igrac igrac, Integer indexFigure)
 	{
 		this.mat = m;
 		this.oznaka = oznaka;
@@ -37,6 +38,7 @@ public abstract class Figura implements Runnable {
 		this.igracVlasnik = igrac;
 		this.brojPokupljenihDijamanata = 0;
 		this.bojaFigure = boja;
+		this.indexFigure = indexFigure;
 		//this.brPredjenihPolja = null;
 	}
 	
@@ -63,7 +65,7 @@ public abstract class Figura implements Runnable {
 //		this.brPredjenihPolja = brPredjenihPolja;
 //	}
 	
-	abstract public List<Integer> getListaPoljaZaPrelazak();
+	abstract public void getListaPoljaZaPrelazak();
 	abstract public void pokreniFiguru(Object lockObj, AtomicBoolean pauzirano);
 	
 	protected List<Integer> popuniListu(Integer start, Integer end)
@@ -150,6 +152,14 @@ public abstract class Figura implements Runnable {
 	public void pokupiDijamant()
 	{
 		this.brojPokupljenihDijamanata++;
+	}
+
+	public Integer getIndexFigure() {
+		return indexFigure;
+	}
+
+	public void setIndexFigure(Integer indexFigure) {
+		this.indexFigure = indexFigure;
 	}
 	
 }

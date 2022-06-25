@@ -1,8 +1,12 @@
 package etf.unibl.org.models;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import etf.unibl.org.enums.Boje;
 import etf.unibl.org.models.interfaces.Figura;
@@ -11,11 +15,25 @@ import javafx.scene.paint.Color;
 
 public class ObicnaFigura extends Figura{
 
-	public ObicnaFigura(Matrica m, String oznaka, Color enumBoja, Igrac igrac) {
-		super(m, oznaka, enumBoja, igrac);
-		// TODO Auto-generated constructor stub
+	public ObicnaFigura(Matrica m, String oznaka, Color enumBoja, Igrac igrac, Integer indexFigure) {
+		super(m, oznaka, enumBoja, igrac, indexFigure);
+		
 	}
 
+	public static FileHandler handler;
+	
+	static{
+		try
+		{
+			handler = new FileHandler("ObicnaFigura.log");
+			Logger.getLogger(ObicnaFigura.class.getName()).addHandler(handler);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void run() {
 		//ObicnaFigura temp = this;
@@ -31,7 +49,7 @@ public class ObicnaFigura extends Figura{
 			}
 		}
 		
-		List<Integer> poljaZaPrelazak = this.getListaPoljaZaPrelazak();
+		List<Integer> poljaZaPrelazak = this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
 		
 		if(poljaZaPrelazak!=null)
 		{
@@ -63,18 +81,17 @@ public class ObicnaFigura extends Figura{
 	}
 
 	@Override
-	public List<Integer> getListaPoljaZaPrelazak()  
+	public void getListaPoljaZaPrelazak()  
 	{
 
 		Integer cilj = this.brZadanihPolja + this.getIndexPosljednjegPolja();
 
-		
 		if(cilj>=mat.getDuzinaPutanje()-1)
 		{
 			this.indexCilja = mat.getDuzinaPutanje()-1;
 			this.brZadanihPolja = mat.getDuzinaPutanje()-1 - this.getIndexPosljednjegPolja();
 			
-			return this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
+			//return this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
 		}
 		else
 		{
@@ -84,16 +101,17 @@ public class ObicnaFigura extends Figura{
 				{
 					this.indexCilja = cilj;
 					this.brZadanihPolja = cilj - this.getIndexPosljednjegPolja();
-					
-					return this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
+					break;
+					//return this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
 				}
 				else
 				{
 					cilj++;
 				}
 			}
-			
-			return null;
+//			this.brZadanihPolja = 0;
+//			this.indexCilja = 0;
+			//return null;
 			
 		}
 	}
@@ -107,12 +125,11 @@ public class ObicnaFigura extends Figura{
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(ObicnaFigura.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			}
 		}
 		
-		List<Integer> poljaZaPrelazak = this.getListaPoljaZaPrelazak();
+		List<Integer> poljaZaPrelazak = this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
 		
 		if(poljaZaPrelazak!=null)
 		{
@@ -125,8 +142,7 @@ public class ObicnaFigura extends Figura{
 					try {
 						lockObj.wait();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Logger.getLogger(ObicnaFigura.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 					}
 				}
 			}
@@ -137,8 +153,7 @@ public class ObicnaFigura extends Figura{
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(ObicnaFigura.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 			}
 			
 			if(this.getIndexPosljednjegPolja()==mat.getPutanja().get(mat.getPutanja().size()-1).getIndexPutanje())
@@ -154,6 +169,8 @@ public class ObicnaFigura extends Figura{
 		{
 			
 		}
+		
+		handler.close();
 	}
 
 }

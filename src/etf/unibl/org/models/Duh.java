@@ -1,9 +1,15 @@
 package etf.unibl.org.models;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import etf.unibl.org.file_writer.RezultatFile;
 
 public class Duh implements Runnable {
 	
@@ -12,6 +18,21 @@ public class Duh implements Runnable {
 	private volatile boolean exit = false;
 	private Object lockObj;
 	private AtomicBoolean pauzirano;
+	
+	public static FileHandler handler;
+	
+	static{
+		try
+		{
+			handler = new FileHandler("Duh.log");
+			Logger.getLogger(Duh.class.getName()).addHandler(handler);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public Duh(Matrica matrica, AtomicBoolean pauzirano, Object lockObj) {
 		this.matrica = matrica;
@@ -22,9 +43,18 @@ public class Duh implements Runnable {
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		
 		while(!exit)
 		{
+			
+			List<Integer> listaPozicijaDijamanata = izaberiPozicijeDijamanata();
+			matrica.postaviDijamante(listaPozicijaDijamanata);
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				Logger.getLogger(Duh.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
+			}
+			
 			synchronized(lockObj)
 			{
 				if(pauzirano.get()==true)
@@ -32,22 +62,15 @@ public class Duh implements Runnable {
 					try {
 						lockObj.wait();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Logger.getLogger(Duh.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 					}
 				}
 			}
-			List<Integer> listaPozicijaDijamanata = izaberiPozicijeDijamanata();
-			matrica.postaviDijamante(listaPozicijaDijamanata);
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 			matrica.ukloniDijamante(listaPozicijaDijamanata);
 		}
-
+		
+		handler.close();
 	}
 	
 	private List<Integer> izaberiPozicijeDijamanata()

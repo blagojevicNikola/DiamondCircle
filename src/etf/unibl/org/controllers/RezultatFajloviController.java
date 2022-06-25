@@ -24,7 +24,7 @@ public class RezultatFajloviController {
 	@FXML private ListView<String> listaViewFajlovi;
 	@FXML private TextArea textAreaSadrzajFajla;
 	
-	public static Handler handler;
+	public static FileHandler handler;
 	
 	{
 		try {
@@ -91,7 +91,7 @@ public class RezultatFajloviController {
 		
 		
 		inputStream.close();
-		
+		handler.close();
 	}
 	
 }

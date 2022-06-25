@@ -1,6 +1,10 @@
 package etf.unibl.org.models;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import etf.unibl.org.models.interfaces.Figura;
 import etf.unibl.org.models.interfaces.LebdecaFiguraInterface;
@@ -18,6 +22,20 @@ public class Polje {
 	private Figura sadrzanaFigura;
 	private Integer indexPutanje;
 	private Object mutex = new Object();
+	
+	public static FileHandler handler;
+	
+	static{
+		try
+		{
+			handler = new FileHandler("Polje.log");
+			Logger.getLogger(Polje.class.getName()).addHandler(handler);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	public Polje(Integer vr, Integer x, Integer y)
 	{
@@ -85,12 +103,11 @@ public class Polje {
 				try {
 					this.widget.postaviDijamant();
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Logger.getLogger(Polje.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 				}
 			}
 		}
-		
+		handler.close();
 	}
 	
 	public void removeDijamant()

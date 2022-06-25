@@ -35,30 +35,21 @@ public class Matrica {
 		
 		Properties prop = new Properties();
 		InputStream inputStream = null;
-		try {
-			inputStream = new FileInputStream("resources/config/config.properties");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			prop.load(inputStream);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
+		inputStream = new FileInputStream("resources/config/config.properties");
+		
+		
+		prop.load(inputStream);
+	
 		
 		File inputFile = new File(prop.getProperty("putanje")+ dim.toString() +  ".txt");
 		FileReader input = null;
 		Scanner sc = null;
 
-		try {
-			input = new FileReader(inputFile);
-			sc = new Scanner(input).useDelimiter(",");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		input = new FileReader(inputFile);
+		sc = new Scanner(input).useDelimiter(",");
+	
 
 		List<Integer> listaPozicija = new ArrayList<Integer>();
 		while(sc.hasNext())
@@ -134,7 +125,7 @@ public class Matrica {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
+				
 				for(int i = 0; i < lista.size(); i++)
 				{
 					putanja.get(lista.get(i)).setCrnaRupa();
@@ -149,7 +140,7 @@ public class Matrica {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
+				
 				for(int i = 0; i < lista.size(); i++)
 				{
 					putanja.get(lista.get(i)).removeCrnaRupa();

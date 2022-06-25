@@ -9,7 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import application.Main;
 import etf.unibl.org.file_writer.RezultatFile;
 import etf.unibl.org.models.Duh;
 import etf.unibl.org.models.Igrac;
@@ -48,7 +53,19 @@ public class UpravljanjeIgracimaController implements Runnable{
 	private Boolean nemaAktivnihIgara;
 	private Button pokreniZaustaviButton;
 
+	public static FileHandler handler;
 	
+	static{
+		try
+		{
+			handler = new FileHandler("UpravljanjeIgracimaController.log");
+			Logger.getLogger(UpravljanjeIgracimaController.class.getName()).addHandler(handler);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	public UpravljanjeIgracimaController(List<Igrac> lista, Matrica mat, ImageView kartaHolder, Label kartaOpis, Label timer, Label sadrzajOpisaKarte, Boolean nemaAktivnihIgara, Button pokreniZaustaviButton)
 	{
@@ -88,8 +105,7 @@ public class UpravljanjeIgracimaController implements Runnable{
 				try {
 					lockObj.wait();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Logger.getLogger(UpravljanjeIgracimaController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 				}
 			}
 			}
@@ -104,15 +120,13 @@ public class UpravljanjeIgracimaController implements Runnable{
 				InputStream inputStream = null;
 				try {
 					inputStream = new FileInputStream("resources/config/config.properties");
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (FileNotFoundException e) {
+					Logger.getLogger(UpravljanjeIgracimaController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 				}
 				try {
 					prop.load(inputStream);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (IOException e) {
+					Logger.getLogger(UpravljanjeIgracimaController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 				}
 				
 				File in = new File(prop.getProperty("slikaKarteCrnaRupa"));
@@ -144,8 +158,7 @@ public class UpravljanjeIgracimaController implements Runnable{
 				try {
 					inputStream.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Logger.getLogger(UpravljanjeIgracimaController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 				}
 				
 			}
@@ -162,20 +175,19 @@ public class UpravljanjeIgracimaController implements Runnable{
 					InputStream inputStream = null;
 					try {
 						inputStream = new FileInputStream("resources/config/config.properties");
-					} catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					} catch (FileNotFoundException e) {
+						Logger.getLogger(UpravljanjeIgracimaController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 					}
 					try {
 						prop.load(inputStream);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					} catch (IOException e) {
+						Logger.getLogger(UpravljanjeIgracimaController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 					}
 					
 					File in = new File(prop.getProperty("slikaObicneKarte"));
 					Image sl = new Image(in.toURI().toString());
 					pokrenutaFigura.setBrZadanihPolja(izvucenaObicnaKarta.getBroj());
+					pokrenutaFigura.getListaPoljaZaPrelazak();
 					Platform.runLater(new Runnable() {
 
 						@Override
@@ -218,8 +230,7 @@ public class UpravljanjeIgracimaController implements Runnable{
 					try {
 						inputStream.close();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Logger.getLogger(UpravljanjeIgracimaController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 					}
 					
 				}
@@ -242,10 +253,10 @@ public class UpravljanjeIgracimaController implements Runnable{
 		try {
 			upisivanjeRezultata.upisiRezultatIgre(timer.getText());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getLogger(UpravljanjeIgracimaController.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 		}
 		
+		handler.close();
 		
 	}
 	
@@ -256,8 +267,8 @@ public class UpravljanjeIgracimaController implements Runnable{
 	
 	private void postaviOpisObicneKarte(Figura f)
 	{
-//		this.sadrzajOpisaKarte.setText("Na potezu je igrac " + f.getIgracVlasnik().getIndexIgraca()+1 + ", figura prelazi sa polja: "
-//				+ matrica.getPutanja().get(f.getIndexPosljednjegPolja()).getVrijednostPolja() + " na polje: " + matrica.getPutanja().get(f.getIndexCilja()).getVrijednostPolja());
+		this.sadrzajOpisaKarte.setText("Na potezu je igrac " + f.getIgracVlasnik().getNaziv() + "-Figura " + (f.getIndexFigure()+1) + ", figura prelazi sa polja "
+				+ matrica.getPutanja().get(f.getIndexPosljednjegPolja()).getVrijednostPolja() + " na polje " + matrica.getPutanja().get(f.getIndexCilja()).getVrijednostPolja());
 	}
 	
 	public void pauzirajSimulaciju()
