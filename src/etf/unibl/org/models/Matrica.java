@@ -27,7 +27,7 @@ public class Matrica {
 	
 	private Integer dimenzija;
 	static private List<List<Polje> > matrica = new ArrayList<List<Polje>>();
-	static private List<Polje> putanja = new ArrayList<Polje>();
+	static public List<Polje> putanja = new ArrayList<Polje>();
 	private GridPane matricaWidget;
 	
 	public Matrica(Integer dim) throws IOException
@@ -83,13 +83,13 @@ public class Matrica {
 	
 	public void postaviFiguruNaPocetak(Figura f)
 	{
-		putanja.get(0).setFigura(f, 0);
+		putanja.get(0).setFigura(f);
 	}
 	
 	public void postaviFiguru(Figura f, Integer i)
 	{	
 		
-			putanja.get(i).setFigura(f, i);
+		putanja.get(i).setFigura(f);
 		
 	}
 	

@@ -82,7 +82,7 @@ public class Duh implements Runnable {
 		while(i<brojDijamanata)
 		{
 			Integer k = rand.nextInt(matrica.getDuzinaPutanje());
-			if(!lista.contains(k))
+			if(!lista.contains(k) && !matrica.getPutanja().get(k).getImaDijamant())
 			{
 				lista.add(k);
 				i++;

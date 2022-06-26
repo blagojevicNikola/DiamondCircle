@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.FileHandler;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,9 +20,8 @@ import etf.unibl.org.enums.Boje;
 import etf.unibl.org.models.Igrac;
 import etf.unibl.org.models.Matrica;
 import etf.unibl.org.models.Polje;
-import etf.unibl.org.models.interfaces.Figura;
 import etf.unibl.org.views.FiguraLegendaWidget;
-import etf.unibl.org.views.KartaWidget;
+
 import etf.unibl.org.views.PoljeWidget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,14 +74,13 @@ public class MainPageController {
 	private Boolean simulacijaTraje;
 	UpravljanjeIgracimaController upravljac;
 	
-	public void kreirajMatricu(Integer dim, Integer brIg) throws IOException, FileNotFoundException
+	public void kreirajMatricu(Integer dim, List<String> igraci) throws IOException, FileNotFoundException
 	{
 		
 		
 		matrica = new Matrica(dim);
-		
-		
-		this.dimenzijaMatrice = dim;
+		this.setDimenzijaMatrice(dim);
+		this.setBrIgraca(igraci.size());
 		this.matricaWidget = new GridPane();
 		matricaWidget.setAlignment(Pos.CENTER);
 		
@@ -103,9 +100,9 @@ public class MainPageController {
 		matrica.setMatricaWidget(matricaWidget);
 		List<Boje> bojeIgraca = new ArrayList<Boje>(Arrays.asList(Boje.values()));
 		Collections.shuffle(bojeIgraca);
-		for(int i = 0; i < brIg; i++)
+		for(int i = 0; i < this.brIgraca; i++)
 		{	
-			Igrac igrac = new Igrac("Igrac " + String.valueOf(i+1), bojeIgraca.get(i), matrica, i);
+			Igrac igrac = new Igrac(igraci.get(i), bojeIgraca.get(i), matrica, i);
 			listaIgraca.add(igrac);
 		}
 		Collections.shuffle(listaIgraca);
@@ -144,7 +141,7 @@ public class MainPageController {
 			int k = 0;
 			for(String igra:listaIgara)
 			{
-				if(igra.matches(Config.nazivFajlaRegex))
+				if(igra.matches(prop.getProperty("nazivFajlaRegex")))
 				{
 					k++;
 				}
@@ -232,6 +229,27 @@ public class MainPageController {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	public void getBrojFajlova()
+	{
+		
+	}
+
+	public Integer getDimenzijaMatrice() {
+		return dimenzijaMatrice;
+	}
+
+	public void setDimenzijaMatrice(Integer dimenzijaMatrice) {
+		this.dimenzijaMatrice = dimenzijaMatrice;
+	}
+
+	public Integer getBrIgraca() {
+		return brIgraca;
+	}
+
+	public void setBrIgraca(Integer brIgraca) {
+		this.brIgraca = brIgraca;
 	}
 	
 	

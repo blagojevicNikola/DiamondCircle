@@ -27,7 +27,7 @@ public abstract class Figura implements Runnable {
 	protected Matrica mat;
 	private Igrac igracVlasnik;
 	protected List<Integer> indexPredjenihPolja = new ArrayList<Integer>();
-	protected List<Integer> listaPoljaZaPrelazak = new ArrayList<Integer>();
+	//protected List<Integer> listaPoljaZaPrelazak = new ArrayList<Integer>();
 	
 	public Figura(Matrica m, String oznaka, Color boja, Igrac igrac, Integer indexFigure)
 	{

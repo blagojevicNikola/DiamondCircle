@@ -6,11 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
@@ -54,8 +57,9 @@ public class RezultatFajloviController {
 		
 		
 		File fajlovi = new File(prop.getProperty("rezultati"));
-		String listaFajlova[] = fajlovi.list();
-		listaViewFajlovi.getItems().addAll(listaFajlova);
+		List<String> listaFajlova = Arrays.asList(fajlovi.list());
+		List<String> sortiranaLista = listaFajlova.stream().filter(f -> f.matches(prop.getProperty("nazivFajlaRegex"))).sorted((f1,f2) -> f2.compareTo(f1)).collect(Collectors.toList());
+		listaViewFajlovi.getItems().addAll(sortiranaLista);
 		listaViewFajlovi.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override

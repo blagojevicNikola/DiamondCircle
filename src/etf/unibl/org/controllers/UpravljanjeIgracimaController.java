@@ -198,6 +198,11 @@ public class UpravljanjeIgracimaController implements Runnable{
 							postaviOpisObicneKarte(pokrenutaFigura);
 						}});
 					
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e1) {
+						Logger.getLogger(UpravljanjeIgracimaController.class.getName()).log(Level.WARNING, e1.fillInStackTrace().toString());
+					}
 					
 					pokrenutaFigura.pokreniFiguru(this.lockObj, this.pauzirano);
 					
@@ -267,7 +272,7 @@ public class UpravljanjeIgracimaController implements Runnable{
 	
 	private void postaviOpisObicneKarte(Figura f)
 	{
-		this.sadrzajOpisaKarte.setText("Na potezu je igrac " + f.getIgracVlasnik().getNaziv() + "-Figura " + (f.getIndexFigure()+1) + ", figura prelazi sa polja "
+		this.sadrzajOpisaKarte.setText("Na potezu je " + f.getIgracVlasnik().getNaziv() + "-Figura " + (f.getIndexFigure()+1) + ", figura prelazi sa polja "
 				+ matrica.getPutanja().get(f.getIndexPosljednjegPolja()).getVrijednostPolja() + " na polje " + matrica.getPutanja().get(f.getIndexCilja()).getVrijednostPolja());
 	}
 	

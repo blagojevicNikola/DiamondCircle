@@ -5,21 +5,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import etf.unibl.org.config.Config;
 import etf.unibl.org.models.interfaces.Karta;
 
 public class SpilKarata {
 	
-	private Integer brojKarata = 52;
+	private Integer brojKarata = Config.VELICINA_SPILA;
 	private List<Karta> spil = new ArrayList<Karta>();
 	
 	public SpilKarata()
 	{
-		for(int i = 1; i <= brojKarata - 12; i++)
+		for(int i = 1; i <= brojKarata - Config.BROJ_SPEC_KARATA; i++)
 		{
-			spil.add(new ObicnaKarta((i%4) + 1));
+			spil.add(new ObicnaKarta((i%Config.MAX_VRIJEDNOST_OBICNE_KARTE) + 1));
 		}
 		
-		for(int i = 0; i < 12; i++)
+		for(int i = 0; i < Config.BROJ_SPEC_KARATA; i++)
 		{
 			spil.add(new SpecijalnaKarta());
 		}

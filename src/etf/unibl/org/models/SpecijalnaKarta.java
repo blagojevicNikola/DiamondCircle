@@ -35,7 +35,7 @@ public class SpecijalnaKarta extends Karta implements SpecijalnaKartaInterface{
 	}
 	
 	public SpecijalnaKarta() {
-		super("src/application/images.png");
+		super();
 		
 		Properties prop = new Properties();
 		InputStream inputStream = null;
@@ -57,7 +57,7 @@ public class SpecijalnaKarta extends Karta implements SpecijalnaKartaInterface{
 		int i = 0;
 		while(i<brojCrnihRupa)
 		{
-			Integer p = rand.nextInt(25);
+			Integer p = rand.nextInt(Matrica.putanja.size());
 			if(!pozicijeCrnihRupa.contains(p))
 			{
 				pozicijeCrnihRupa.add(p);

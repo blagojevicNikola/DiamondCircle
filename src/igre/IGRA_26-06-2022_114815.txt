@@ -1,0 +1,29 @@
+Igrac 1
+Figura 1(O) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46) - stigla do kraja: ne
+Figura 2(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: da
+Figura 3(S) - predjen put: (4 - 12 - 20 - 28 - 34) - stigla do kraja: ne
+Figura 4(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46) - stigla do kraja: ne
+
+
+Igrac 2
+Figura 1(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: da
+Figura 2(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: da
+Figura 3(O) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17) - stigla do kraja: ne
+Figura 4(O) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: da
+
+
+Igrac 3
+Figura 1(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: da
+Figura 2(O) - predjen put: (4 - 12 - 20 - 28 - 34 - 40) - stigla do kraja: ne
+Figura 3(L) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: da
+Figura 4(L) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: da
+
+
+Igrac 4
+Figura 1(S) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: da
+Figura 2(L) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: da
+Figura 3(O) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31) - stigla do kraja: ne
+Figura 4(L) - predjen put: (4 - 12 - 20 - 28 - 34 - 40 - 46 - 38 - 30 - 22 - 16 - 10 - 11 - 19 - 27 - 33 - 39 - 31 - 23 - 17 - 18 - 26 - 32 - 24 - 25) - stigla do kraja: da
+
+
+Ukupno vrijeme izvrsavanja je: 413s

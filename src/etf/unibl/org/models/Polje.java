@@ -45,7 +45,7 @@ public class Polje {
 		this.indexPutanje = null;
 	}
 	
-	public void setFigura(Figura f, Integer i)
+	public void setFigura(Figura f)
 	{
 		PoljeWidget temp = this.widget;
 		synchronized(mutex)
@@ -103,6 +103,8 @@ public class Polje {
 				try {
 					this.widget.postaviDijamant();
 				} catch (FileNotFoundException e) {
+					Logger.getLogger(Polje.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
+				} catch (IOException e) {
 					Logger.getLogger(Polje.class.getName()).log(Level.WARNING, e.fillInStackTrace().toString());
 				}
 			}

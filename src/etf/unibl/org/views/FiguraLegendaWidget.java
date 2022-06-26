@@ -7,6 +7,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import etf.unibl.org.config.Config;
 import etf.unibl.org.controllers.PredjenaPutanjaFormController;
 import etf.unibl.org.models.interfaces.Figura;
 import javafx.event.ActionEvent;
@@ -39,7 +40,7 @@ public class FiguraLegendaWidget extends Button {
 	{
 		super("Figura " + figura.getOznaka() + " (" + indexIgraca + ")");
 		
-		super.setMinWidth(120);
+		super.setMinWidth(Config.MIN_SIRINA_FIGURA_BUTTON);
 		this.setBoja(figura);
 		
 		this.setOnAction(new EventHandler<ActionEvent>() {

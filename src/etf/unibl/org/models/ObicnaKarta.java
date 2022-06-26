@@ -10,7 +10,7 @@ public class ObicnaKarta extends Karta implements ObicnaKartaInterface {
 
 	public ObicnaKarta(Integer br)
 	{
-		super("src/application/images.png");
+		super();
 		broj = br;
 	}
 	

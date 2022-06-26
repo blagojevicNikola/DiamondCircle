@@ -97,7 +97,7 @@ public class RezultatFile {
 		 
 		 for(int i = 0; i < UpravljanjeIgracimaController.listaZavrsenihFigura.size(); i++)
 		 {
-			 writer.write("Igrac "+String.valueOf(i+1));
+			 writer.write("Igrac "+String.valueOf(i+1) + " - " + UpravljanjeIgracimaController.listaZavrsenihFigura.get(i).get(0).getIgracVlasnik().getNaziv());
 			 writer.newLine();
 			 for(int j = 0; j < 4; j++ )
 			 {
@@ -125,7 +125,8 @@ public class RezultatFile {
 					 } 
 				 }
 				 rezultatPutanje += ")";
-				 writer.write("Figura " + String.valueOf(j+1) + "("+temp.getOznaka()+")" + " - predjen put: " + rezultatPutanje + " - stigla do kraja: " + temp.getZavrsenPut());
+				 String figuraJeStiglaDoKraja = (temp.getZavrsenPut()) ? "da" : "ne";
+				 writer.write("Figura " + String.valueOf(j+1) + "("+temp.getOznaka()+")" + " - predjen put: " + rezultatPutanje + " - stigla do kraja: " + figuraJeStiglaDoKraja);
 				 writer.newLine();
 			 }
 			 writer.newLine();
