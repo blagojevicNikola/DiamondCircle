@@ -57,7 +57,10 @@ public class MainPageController {
 	
 	{
 		try {
-			handler = new FileHandler("MainPageController.log");
+			Properties prop = new Properties();
+			InputStream inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+			handler = new FileHandler(prop.getProperty("logFolder") + "MainPageController.log");
 			Logger.getLogger(MainPageController.class.getName()).addHandler(handler);
 		} catch (SecurityException | IOException e) {
 			// TODO Auto-generated catch block

@@ -31,7 +31,10 @@ public class RezultatFajloviController {
 	
 	{
 		try {
-			handler = new FileHandler("RezultatFajloviController.log");
+			Properties prop = new Properties();
+			InputStream inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+			handler = new FileHandler(prop.getProperty("logFolder") + "RezultatFajloviController.log");
 			Logger.getLogger(RezultatFajloviController.class.getName()).addHandler(handler);
 		} catch (SecurityException | IOException e) {
 			// TODO Auto-generated catch block

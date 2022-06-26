@@ -1,6 +1,9 @@
 package etf.unibl.org.models;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -22,7 +25,10 @@ public class TimerIgre implements Runnable {
 	static{
 		try
 		{
-			handler = new FileHandler("TimerIgre.log");
+			Properties prop = new Properties();
+			InputStream inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+			handler = new FileHandler(prop.getProperty("logFolder") + "TimerIgre.log");
 			Logger.getLogger(TimerIgre.class.getName()).addHandler(handler);
 		}
 		catch(IOException e)

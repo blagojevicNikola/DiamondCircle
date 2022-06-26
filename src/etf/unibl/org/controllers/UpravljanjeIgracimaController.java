@@ -58,7 +58,10 @@ public class UpravljanjeIgracimaController implements Runnable{
 	static{
 		try
 		{
-			handler = new FileHandler("UpravljanjeIgracimaController.log");
+			Properties prop = new Properties();
+			InputStream inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+			handler = new FileHandler(prop.getProperty("logFolder") + "UpravljanjeIgracimaController.log");
 			Logger.getLogger(UpravljanjeIgracimaController.class.getName()).addHandler(handler);
 		}
 		catch(IOException e)
@@ -94,6 +97,7 @@ public class UpravljanjeIgracimaController implements Runnable{
 		duhThread.setDaemon(true);
 		timerThread.start();
 		duhThread.start();
+		
 		while(this.igraJeZavrsena==false)
 		{
 		for(int i = 0; i<listaIgraca.size(); i++) {

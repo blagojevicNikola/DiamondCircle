@@ -31,7 +31,10 @@ public class RezultatFile {
 	static{
 		try
 		{
-			handler = new FileHandler("RezultatFile.log");
+			Properties prop = new Properties();
+			InputStream inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+			handler = new FileHandler(prop.getProperty("logFolder") + "RezultatFile.log");
 			Logger.getLogger(RezultatFile.class.getName()).addHandler(handler);
 		}
 		catch(IOException e)

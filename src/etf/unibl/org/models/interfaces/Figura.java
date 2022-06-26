@@ -10,7 +10,7 @@ import etf.unibl.org.models.Matrica;
 import etf.unibl.org.views.FiguraWidget;
 import javafx.scene.paint.Color;
 
-public abstract class Figura implements Runnable {
+public abstract class Figura{
 	
 	private Integer pozicijaX;
 	private Integer pozicijaY;

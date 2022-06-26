@@ -211,61 +211,6 @@ public class Matrica {
 		return this.putanja;
 	}
 	
-//	private void spiralDiamondView(List<List<Polje>> matrix, 
-//	        int x, int y, int m, int n, int k, List<Polje> nova)
-//	    {
-//	        // Get middle column
-//	        int midCol = y + ((n - y) / 2);
-//	        int midRow = midCol;
-//	        
-//	        for (int i = midCol, j = 0; 
-//	             i < n && k > 0; ++i, k--, j++)
-//	        {
-//	            nova.add(matrix.get(x + j).get(i));
-//	        }
-//	        
-//	        for (int i = n, j = 0; 
-//	             i >= midCol && k > 0; --i, k--, j++)
-//	        {
-//	            nova.add(matrix.get(midRow+j).get(i));
-//	        }
-//	        
-//	        for (int i = midCol - 1, j = 1; 
-//	             i >= y && k > 0; --i, k--, j++)
-//	        {
-//	            nova.add(matrix.get((n)-j).get(i));
-//	        }
-//	       
-//	        for (int i = y + 1, j = 1; 
-//	             i < midCol && k > 0; ++i, k--, j++)
-//	        {
-//	            nova.add(matrix.get((midRow) - j).get(i));
-//	        }
-//	        if (x + 1 <= m - 1 && k > 0)
-//	        {
-//	            // Recursive call
-//	            spiralDiamondView(matrix, x + 1, 
-//	                              y + 1, m - 1, n - 1, k, nova);
-//	        }
-//	    }
-//	    private List<Polje> diamondSpiral(List<List<Polje>> matrix, int size)
-//	    {
-//	        // Get the size
-//	        int row = size;
-//	        int col = size;
-//	        List<Polje> nova = new ArrayList<Polje>();
-//	        
-////	        if (row != col || col % 2 == 0)
-////	        {
-////	            System.out.println("\nNot perfect odd square matrix");
-////	            return;
-////	        }
-//	        // Print result
-//	        spiralDiamondView(matrix, 0, 0, row - 1, 
-//	            col - 1, (row * col) - ((col + 1) / 2) * 4, nova);
-//	        
-//	        return nova;
-//	    }
 	    
 	    private Polje getPoljeZaPutanju(List<List<Polje>> mat, Integer vrijednost)
 	    {

@@ -1,8 +1,11 @@
 package etf.unibl.org.models;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -24,7 +27,10 @@ public class SuperBrzaFigura extends Figura {
 	static{
 		try
 		{
-			handler = new FileHandler("SuperBrzaFigura.log");
+			Properties prop = new Properties();
+			InputStream inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+			handler = new FileHandler(prop.getProperty("logFolder") + "SuperBrzaFigura.log");
 			Logger.getLogger(ObicnaFigura.class.getName()).addHandler(handler);
 		}
 		catch(IOException e)
@@ -33,51 +39,51 @@ public class SuperBrzaFigura extends Figura {
 		}
 	}
 	
-	@Override
-	public void run() {
-		
-		
-		if(this.getIndexPredjenihPolja().size()==0)
-		{
-			mat.postaviFiguruNaPocetak(this);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		List<Integer> poljaZaPrelazak = this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
-		
-		if(poljaZaPrelazak!=null)
-		{
-			for (int i = 0; i < poljaZaPrelazak.size()-1; i++) {
-			
-				mat.ukloniFiguru(this, poljaZaPrelazak.get(i));
-				mat.postaviFiguru(this, poljaZaPrelazak.get(i+1));
-			
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			
-				if(this.getIndexPosljednjegPolja()==mat.getPutanja().get(mat.getPutanja().size()-1).getIndexPutanje())
-				{
-					//System.out.println("To je: " + mat.getPutanja().get(mat.getPutanja().size()-1).getIndexPutanje());
-					mat.ukloniFiguru(this, this.getIndexPosljednjegPolja());
-					this.setZavrsenPut(true);
-					break;
-				}
-			}
-		}
-		else
-		{
-			
-		}
-	}
+//	@Override
+//	public void run() {
+//		
+//		
+//		if(this.getIndexPredjenihPolja().size()==0)
+//		{
+//			mat.postaviFiguruNaPocetak(this);
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		List<Integer> poljaZaPrelazak = this.popuniListu(this.getIndexPosljednjegPolja(), this.getIndexCilja());
+//		
+//		if(poljaZaPrelazak!=null)
+//		{
+//			for (int i = 0; i < poljaZaPrelazak.size()-1; i++) {
+//			
+//				mat.ukloniFiguru(this, poljaZaPrelazak.get(i));
+//				mat.postaviFiguru(this, poljaZaPrelazak.get(i+1));
+//			
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			
+//				if(this.getIndexPosljednjegPolja()==mat.getPutanja().get(mat.getPutanja().size()-1).getIndexPutanje())
+//				{
+//					//System.out.println("To je: " + mat.getPutanja().get(mat.getPutanja().size()-1).getIndexPutanje());
+//					mat.ukloniFiguru(this, this.getIndexPosljednjegPolja());
+//					this.setZavrsenPut(true);
+//					break;
+//				}
+//			}
+//		}
+//		else
+//		{
+//			
+//		}
+//	}
 	
 	@Override
 	public void setBrZadanihPolja(Integer i)
@@ -166,7 +172,7 @@ public class SuperBrzaFigura extends Figura {
 			
 				if(this.getIndexPosljednjegPolja()==mat.getPutanja().get(mat.getPutanja().size()-1).getIndexPutanje())
 				{
-					System.out.println("To je: " + mat.getPutanja().get(mat.getPutanja().size()-1).getIndexPutanje());
+					//System.out.println("To je: " + mat.getPutanja().get(mat.getPutanja().size()-1).getIndexPutanje());
 					mat.ukloniFiguru(this, this.getIndexPosljednjegPolja());
 					this.setZavrsenPut(true);
 					break;

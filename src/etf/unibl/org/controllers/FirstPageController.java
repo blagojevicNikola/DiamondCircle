@@ -48,7 +48,10 @@ public class FirstPageController {
 	
 	{
 		try {
-			handler = new FileHandler("FirstPageController.log");
+			Properties prop = new Properties();
+			InputStream inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+			handler = new FileHandler(prop.getProperty("logFolder") + "FirstPageController.log");
 			Logger.getLogger(FirstPageController.class.getName()).addHandler(handler);
 		} catch (SecurityException | IOException e) {
 			// TODO Auto-generated catch block

@@ -1,8 +1,11 @@
 package etf.unibl.org.models;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.FileHandler;
@@ -24,7 +27,10 @@ public class Duh implements Runnable {
 	static{
 		try
 		{
-			handler = new FileHandler("Duh.log");
+			Properties prop = new Properties();
+			InputStream inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+			handler = new FileHandler(prop.getProperty("logFolder") + "Duh.log");
 			Logger.getLogger(Duh.class.getName()).addHandler(handler);
 		}
 		catch(IOException e)

@@ -1,7 +1,10 @@
 package etf.unibl.org.views;
 
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -26,7 +29,10 @@ public class FiguraLegendaWidget extends Button {
 	
 	static{
 		try {
-			handler = new FileHandler("FiguraLegendaWidget.log");
+			Properties prop = new Properties();
+			InputStream inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+			handler = new FileHandler(prop.getProperty("logFolder") + "FiguraLegendaWidget.log");
 			Logger.getLogger(FiguraLegendaWidget.class.getName()).addHandler(handler);
 		} catch (SecurityException | IOException e) {
 			// TODO Auto-generated catch block

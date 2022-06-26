@@ -1,7 +1,10 @@
 package etf.unibl.org.models;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +31,10 @@ public class Polje {
 	static{
 		try
 		{
-			handler = new FileHandler("Polje.log");
+			Properties prop = new Properties();
+			InputStream inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+			handler = new FileHandler(prop.getProperty("logFolder") + "Polje.log");
 			Logger.getLogger(Polje.class.getName()).addHandler(handler);
 		}
 		catch(IOException e)

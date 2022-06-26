@@ -1,6 +1,9 @@
 package application;
 	
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -21,7 +24,10 @@ public class Main extends Application {
 	{
 		try
 		{
-			handler = new FileHandler("Main.log");
+			Properties prop = new Properties();
+			InputStream inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+			handler = new FileHandler(prop.getProperty("logFolder") + "Main.log");
 			Logger.getLogger(Main.class.getName()).addHandler(handler);
 		}
 		catch(IOException e)

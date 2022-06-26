@@ -25,7 +25,10 @@ public class SpecijalnaKarta extends Karta implements SpecijalnaKartaInterface{
 	static{
 		try
 		{
-			handler = new FileHandler("SpecijalnaKarta.log");
+			Properties prop = new Properties();
+			InputStream inputStream = new FileInputStream("resources/config/config.properties");
+			prop.load(inputStream);
+			handler = new FileHandler(prop.getProperty("logFolder") + "SpecijalnaKarta.log");
 			Logger.getLogger(SpecijalnaKarta.class.getName()).addHandler(handler);
 		}
 		catch(IOException e)
